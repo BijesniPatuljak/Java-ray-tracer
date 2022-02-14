@@ -48,92 +48,88 @@ public class Scene {
         width = 800;
         height = 600;
 
-        // Materials
-        Material whiteMaterial = new Material(
-            new Color(1.0, 1.0, 1.0),  // Diffusion
-            1.0,                       // Reflection
-            60                         // Specular power
+        
+        /*Material whiteMaterial = new Material(
+            new Color(1.0, 1.0, 1.0),  
+            1.0,                       
+            60                         
         );
 
         Material redMaterial = new Material(
-            new Color(1.0, 0.0, 0.0),  // Diffusion
-            0.5,                       // Reflection
-            60                         // Specular power
+            new Color(1.0, 0.0, 0.0),  
+            0.5,                       
+            60                         
         );
                                       
         Material greenMaterial = new Material(
-            new Color(0.0, 1.0, 0.0),  // Diffusion
-            0.5,                       // Reflection
-            60                         // Specular power
-        );
-
-        Material blueMaterial = new Material(
-            new Color(0.0, 0.0, 1.0),  // Diffusion
-            0.5,                       // Reflection
-            60                         // Specular power
-        );
-
-        Material yellowMaterial = new Material(
-            new Color(1.0, 1.0, 0.0),  // Diffusion
-            0.5,                       // Reflection
-            60                         // Specular power
+            new Color(0.0, 1.0, 0.0),  
+            0.5,                       
+            60                         
         );
 
         Material cyanMaterial = new Material(
-            new Color(0.0, 1.0, 1.0),  // Diffusion
-            2,                       // Reflection
-            60                         // Specular power
+            new Color(0.0, 1.0, 1.0),  
+            2,                       
+            60                         
         );
 
-        Material magentaMaterial = new Material(
-            new Color(1.0, 0.0, 1.0),  // Diffusion
-            0.5,                       // Reflection
-            60                         // Specular power
-        );
 
         Material blackMaterial = new Material(
-            new Color(0.01, 0.01, .01), // Diffusion
-            1.0,                        // Reflection
-            60                          // Specular power
+            new Color(0.01, 0.01, .01), 
+            3.0,                        
+            100                          
         );
 
-        // White sphere
+        
         spheres.add(new Sphere(
-            new Point(400.0, 250.0, 0.0),    // Center
-            100.0,                           // Radius
-            whiteMaterial                    // Material
+            new Point(400.0, 250.0, 0.0),    
+            100.0,                           
+            whiteMaterial                    
         ));
 
-        // Red sphere
+        
         spheres.add(new Sphere(
-            new Point(400.0, 350.0, 0.0), // Center
-            100.0,                           // Radius
-            redMaterial                      // Material
+            new Point(400.0, 350.0, 0.0), 
+            100.0,                           
+            redMaterial                      
         ));
         
         spheres.add(new Sphere(
-            new Point(700.0, 300.0, 200.0), // Center
-            100.0,                           // Radius
-            cyanMaterial                      // Material
-        ));
-
-
-        // Left light
-        lights.add(new Light(
-            new Point(0.0, 200.0, -100.0),     // Origin
-            new Color(2.0, 2.0, 2.0)           // Intensity
-        ));
-
-        // Light behind the camera
-        lights.add(new Light(
-            new Point(640.0, 240.0, -10000.0), // Origin
-            new Color(0.4, 0.4, 0.5)           // Intensity
+            new Point(700.0, 300.0, 200.0), 
+            100.0,                           
+            cyanMaterial                      
         ));
         
-        // Light behind the white sphere.
-        lights.add(new Light(
-            new Point(640.0, 240.0, 100.0),   // Origin
-            new Color(0.2, 0.2, 0.5)          // Intensity
+        spheres.add(new Sphere(
+            new Point(100.0, 400.0, 500.0), 
+            200.0,                           
+            blackMaterial                      
         ));
+        
+        spheres.add(new Sphere(
+            new Point(700.0, 300.0, -10.0), 
+            30.0,                           
+            greenMaterial                      
+        ));
+        spheres.add(new Sphere(
+            new Point(650.0, 350.0, -10.0), 
+            30.0,                           
+            greenMaterial                      
+        ));
+
+
+
+        lights.add(new Light(
+            new Point(0.0, 200.0, -100.0),     
+            new Color(2.0, 2.0, 2.0)           
+        ));
+
+
+        lights.add(new Light(
+            new Point(640.0, 240.0, -10000.0), 
+            new Color(0.4, 0.4, 0.5)           
+        ));*/
+        
+
     }
 }
