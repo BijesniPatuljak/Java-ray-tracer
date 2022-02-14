@@ -9,6 +9,8 @@ package javaraytracer.GUI;
 
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ import javaraytracer.Scena.Material;
 import javaraytracer.Scena.*;
 import javaraytracer.Strukture.Color;
 import javaraytracer.Strukture.Point;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 /**
@@ -392,9 +395,14 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void AddLightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddLightActionPerformed
         // TODO add your handling code here:
-        int X = Integer.parseInt(LXValue.getText());
-        int Y = Integer.parseInt(LYValue.getText());
-        int Z = Integer.parseInt(LZValue.getText());
+        int X, Y, Z;
+        if(!LXValue.getText().isEmpty()) X = Integer.parseInt(LXValue.getText());
+        else X = 0;
+        if(!LYValue.getText().isEmpty()) Y = Integer.parseInt(LYValue.getText());
+        else Y = 0;
+        if(!LZValue.getText().isEmpty()) Z = Integer.parseInt(LZValue.getText());
+        else Z = 0;
+
         Light Yagami = new Light(new Point(X, Y, Z), new Color(2.0, 2.0, 2.0));
         Javaraytracer.scene.addLight(Yagami);
         LastLight = Yagami;
@@ -408,15 +416,27 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void AddSphereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddSphereActionPerformed
         // TODO add your handling code here:
-        double R = Double.parseDouble(RedValue.getText())/255;
-        double G = Double.parseDouble(GreenValue.getText())/255;
-        double B = Double.parseDouble(BlueValue.getText())/255;
-        double spec = Double.parseDouble(SpecValue.getText());
-        double ref = Double.parseDouble(RefValue.getText());
-        int X = Integer.parseInt(XValue.getText());
-        int Y = Integer.parseInt(YValue.getText());
-        int Z = Integer.parseInt(ZValue.getText());
-        int Rad = Integer.parseInt(RValue.getText());
+        double R, G, B, spec, ref;
+        int X, Y, Z, Rad;
+        if(!RedValue.getText().isEmpty()) R = Double.parseDouble(RedValue.getText())/255;
+        else R = 0;
+        if(!GreenValue.getText().isEmpty()) G = Double.parseDouble(GreenValue.getText())/255;
+        else G = 0;
+        if(!BlueValue.getText().isEmpty()) B = Double.parseDouble(BlueValue.getText())/255;
+        else B = 0;
+        if(!SpecValue.getText().isEmpty()) spec = Double.parseDouble(SpecValue.getText())/255;
+        else spec = 1;
+        if(!RefValue.getText().isEmpty()) ref = Double.parseDouble(RefValue.getText())/255;
+        else ref = 50;
+        if(!XValue.getText().isEmpty()) X = Integer.parseInt(XValue.getText());
+        else X = 0;
+        if(!YValue.getText().isEmpty()) Y = Integer.parseInt(YValue.getText());
+        else Y = 0;
+        if(!ZValue.getText().isEmpty()) Z = Integer.parseInt(ZValue.getText());
+        else Z = 0;
+        if(!RValue.getText().isEmpty()) Rad = Integer.parseInt(RValue.getText());
+        else Rad = 0;
+
         Material M = new Material(new Color(R, G, B), ref, spec);
         Sphere S = new Sphere(new Point(X, Y, Z), Rad, M);
         Javaraytracer.scene.addSphere(S);
@@ -435,19 +455,34 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
         // TODO add your handling code here:
-        Labela.setVisible(false);
 
-        ImageIcon slika = new ImageIcon("Ja.jpg");
+        Labela.setVisible(false);
+        File input = new File("output1.bmp");  
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(input);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        File output = new File("output1.jpg");
+        try {
+            ImageIO.write(image, "jpg", output);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ImageIcon slika = new ImageIcon("output1.jpg");
 
         Labela.setIcon(slika);
-        Labela.setVisible(false);
-
-        ImageIcon slika1 = new ImageIcon("output1.jpg");
-
-        Labela.setIcon(slika1);
-
-  
+        Labela.invalidate();
+        Labela.revalidate();
+        Labela.repaint();
+        Labela.updateUI();
         Labela.setVisible(true);
+
+   
         
     }//GEN-LAST:event_UpdateActionPerformed
 
