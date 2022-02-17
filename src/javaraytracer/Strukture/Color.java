@@ -11,9 +11,9 @@ package javaraytracer.Strukture;
  */
 public class Color {
 
-    private double R;
-    private double G;
-    private double B;
+    public double R;
+    public double G;
+    public double B;
 
 
     public Color(double red, double green, double blue)

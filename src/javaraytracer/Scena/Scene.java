@@ -49,7 +49,7 @@ public class Scene {
         height = 600;
 
         
-        /*Material whiteMaterial = new Material(
+        Material whiteMaterial = new Material(
             new Color(1.0, 1.0, 1.0),  
             1.0,                       
             60                         
@@ -128,7 +128,7 @@ public class Scene {
         lights.add(new Light(
             new Point(640.0, 240.0, -10000.0), 
             new Color(0.4, 0.4, 0.5)           
-        ));*/
+        ));
         
 
     }

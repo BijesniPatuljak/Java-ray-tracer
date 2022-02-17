@@ -39,17 +39,12 @@ public class Javaraytracer {
 
         Draw.draw(outputFile, scene);
         NewJFrame a = new NewJFrame();
+        
         a.glavna(new String[0]);
     }
 
 
-    /**
-     * Get the color of the pixel on the camera from where the specified
-     * <code>ray</code> originated.
-     *
-     * @param ray   Ray originating from the camera.
-     * @param scene Scene defintion object.
-     */
+
     public static Color getColor(Ray ray, Scene scene)
     {
         Color outputColor = new Color(0, 0, 0);
@@ -115,14 +110,14 @@ public class Javaraytracer {
 
                 if (!inShadow)
                 {
-                    // Lambertian coeffecient
+                   
                     double lambert = Vector.dotProdukt(lightRay.direction,
                                                          normal) * coef;
 
                     outputColor.add(Color.multiply(lambert, Color.multiply(
                         light.intensity, currentMaterial.diffusion)));
 
-                    // Blinn-Phong specular term
+                  
                     Vector v = Vector.sub(lightRay.direction,
                                                  ray.direction);
                     double norm = v.duljina();
@@ -148,13 +143,9 @@ public class Javaraytracer {
 
             coef *= currentMaterial.reflection;
 
-            // If i is incident ray vector and n is the normal vector
-            // (both normalized) then the reflected ray direction is
-            // given by i - 2 * d.n * n
             Vector projectionAlongNormal = Vector.multiply(
                     Vector.dotProdukt(ray.direction, normal), normal);
 
-            // Compute the reflected ray.
             ray.origin = hitPoint;
             ray.direction = Vector.sub(ray.direction,
                     Vector.multiply(2, projectionAlongNormal));

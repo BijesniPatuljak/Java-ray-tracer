@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javaraytracer.DB.*;
 import javaraytracer.Draw;
 import javaraytracer.Javaraytracer;
 import javaraytracer.Scena.Material;
@@ -23,6 +24,7 @@ import javaraytracer.Strukture.Point;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Bijesni Patuljak
@@ -36,6 +38,8 @@ public class NewJFrame extends javax.swing.JFrame {
     ImageIcon slika = new ImageIcon("output.jpg");
     Sphere LastSphere = new Sphere(new Point (0,0,0),0, new Material(new Color(0,0,0),0,0));
     Light LastLight = new Light(new Point (0,0,0), new Color (0,0,0));
+    databasehandler dbh = new databasehandler();
+    
     
     
     public NewJFrame() {
@@ -84,7 +88,6 @@ public class NewJFrame extends javax.swing.JFrame {
         LZValue = new javax.swing.JTextField();
         RemoveLight = new javax.swing.JButton();
         AddLight = new javax.swing.JButton();
-        Update = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ray Tracing u Javi");
@@ -202,13 +205,6 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        Update.setText("Update");
-        Update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,9 +270,7 @@ public class NewJFrame extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(AddLight, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(RemoveLight))))
-                                .addGap(47, 47, 47)
-                                .addComponent(Update)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 493, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 612, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,9 +340,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(RemoveLight)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(AddLight)
-                            .addComponent(Update))))
+                        .addComponent(AddLight)))
                 .addGap(18, 18, 18)
                 .addComponent(Labela)
                 .addGap(222, 222, 222)
@@ -361,12 +353,42 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void RemoveSphereActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveSphereActionPerformed
         // TODO add your handling code here:
-        Javaraytracer.scene.spheres.remove(LastLight);
+        Javaraytracer.scene.spheres.remove(LastSphere);
         try {
-            Draw.draw("output1.bmp",Javaraytracer.scene);
+            Draw.draw("output.bmp",Javaraytracer.scene);
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+                Labela.setVisible(false);
+        File input = new File("output.bmp");  
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(input);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        File output = new File("output.jpg");
+        try {
+            ImageIO.write(image, "jpg", output);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        image.flush();
+        ImageIcon slika = new ImageIcon(image);
+        
+        
+        
+        Labela.setIcon(slika);
+        Labela.invalidate();
+        Labela.revalidate();
+        Labela.repaint();
+        Labela.updateUI();
+        Labela.setVisible(true);
+        
+        String boja = "'" + String.valueOf(LastSphere.material.diffusion.R) + " " + String.valueOf(LastSphere.material.diffusion.G) + " " + String.valueOf(LastSphere.material.diffusion.B) + " " + String.valueOf(LastSphere.material.power) + " " + String.valueOf(LastSphere.material.reflection)+"'";
+        dbh.addSphere((int)LastSphere.center.x,(int)LastSphere.center.y,(int)LastSphere.center.z,(int)LastSphere.radius,boja);
 
     }//GEN-LAST:event_RemoveSphereActionPerformed
 
@@ -386,10 +408,39 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Javaraytracer.scene.lights.remove(LastLight);
         try {
-            Draw.draw("output1.bmp",Javaraytracer.scene);
+            Draw.draw("output.bmp",Javaraytracer.scene);
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+                Labela.setVisible(false);
+        File input = new File("output.bmp");  
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(input);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        File output = new File("output.jpg");
+        try {
+            ImageIO.write(image, "jpg", output);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        image.flush();
+        ImageIcon slika = new ImageIcon(image);
+        
+        
+
+        Labela.setIcon(slika);
+        Labela.invalidate();
+        Labela.revalidate();
+        Labela.repaint();
+        Labela.updateUI();
+        Labela.setVisible(true);
+        
+        dbh.removeLight((int)LastLight.origin.x,(int)LastLight.origin.y,(int)LastLight.origin.z,0,"'White'");
 
     }//GEN-LAST:event_RemoveLightActionPerformed
 
@@ -404,13 +455,43 @@ public class NewJFrame extends javax.swing.JFrame {
         else Z = 0;
 
         Light Yagami = new Light(new Point(X, Y, Z), new Color(2.0, 2.0, 2.0));
+        
         Javaraytracer.scene.addLight(Yagami);
         LastLight = Yagami;
         try {
-            Draw.draw("output1.bmp",Javaraytracer.scene);
+            Draw.draw("output.bmp",Javaraytracer.scene);
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+                Labela.setVisible(false);
+        File input = new File("output.bmp");  
+
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(input);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        File output = new File("output.jpg");
+        try {
+            ImageIO.write(image, "jpg", output);
+        } catch (IOException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        image.flush();
+        ImageIcon slika = new ImageIcon(image);
+        
+        
+
+        Labela.setIcon(slika);
+        Labela.invalidate();
+        Labela.revalidate();
+        Labela.repaint();
+        Labela.updateUI();
+        Labela.setVisible(true);
+        
+        dbh.addLight((int)Yagami.origin.x,(int)Yagami.origin.y,(int)Yagami.origin.z,0,"'White'");
 
     }//GEN-LAST:event_AddLightActionPerformed
 
@@ -442,22 +523,13 @@ public class NewJFrame extends javax.swing.JFrame {
         Javaraytracer.scene.addSphere(S);
         LastSphere = S;
         try {
-            Draw.draw("output1.bmp",Javaraytracer.scene);
+            Draw.draw("output.bmp",Javaraytracer.scene);
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-    }//GEN-LAST:event_AddSphereActionPerformed
-
-    private void BlueValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlueValueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BlueValueActionPerformed
-
-    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
-        // TODO add your handling code here:
-
+        
         Labela.setVisible(false);
-        File input = new File("output1.bmp");  
+        File input = new File("output.bmp");  
 
         BufferedImage image = null;
         try {
@@ -466,14 +538,16 @@ public class NewJFrame extends javax.swing.JFrame {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        File output = new File("output1.jpg");
+        File output = new File("output.jpg");
         try {
             ImageIO.write(image, "jpg", output);
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        ImageIcon slika = new ImageIcon("output1.jpg");
+        image.flush();
+        ImageIcon slika = new ImageIcon(image);
+        
+        
 
         Labela.setIcon(slika);
         Labela.invalidate();
@@ -481,10 +555,14 @@ public class NewJFrame extends javax.swing.JFrame {
         Labela.repaint();
         Labela.updateUI();
         Labela.setVisible(true);
+        String boja = "'"+String.valueOf(R) + " " + String.valueOf(G) + " " + String.valueOf(B) + " " + String.valueOf(spec) + " " + String.valueOf(ref)+"'";
+        dbh.addSphere(X,Y,Z,Rad,boja);
 
-   
-        
-    }//GEN-LAST:event_UpdateActionPerformed
+    }//GEN-LAST:event_AddSphereActionPerformed
+
+    private void BlueValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BlueValueActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BlueValueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -538,7 +616,6 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton RemoveLight;
     private javax.swing.JButton RemoveSphere;
     private javax.swing.JTextField SpecValue;
-    private javax.swing.JButton Update;
     private javax.swing.JTextField XValue;
     private javax.swing.JTextField YValue;
     private javax.swing.JTextField ZValue;
