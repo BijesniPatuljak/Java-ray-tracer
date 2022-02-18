@@ -10,7 +10,7 @@ package javaraytracer.Scena;
  * @author Bijesni Patuljak
  */
 
-import java.util.Collection;
+
 import java.util.ArrayList;
 import javaraytracer.Strukture.Color;
 import javaraytracer.Strukture.Point;

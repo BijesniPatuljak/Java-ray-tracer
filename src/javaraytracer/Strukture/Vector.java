@@ -11,7 +11,7 @@ package javaraytracer.Strukture;
  */
 public class Vector {
     
-    //vektor u smislu "strelice" u 3 dimenzije, ne racunarsi cektor ili opceniti algebarski vektor
+    //vektor u smislu "strelice" u 3 dimenzije, ne racunarski vektor ili opceniti algebarski vektor
     //sto bi se reklo: vektor u uzem smislu
     
     public double x;

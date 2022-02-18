@@ -9,8 +9,7 @@ package javaraytracer;
  *
  * @author Bijesni Patuljak
  * 
- * 
- * Promjena dimenzija slike
+ *
  * 
  * 
  * 

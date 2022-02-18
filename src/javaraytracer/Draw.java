@@ -31,6 +31,8 @@ public class Draw {
     
     public static void draw(String outputFile, Scene scene) throws IOException
     {
+        
+        long start = System.nanoTime();
         BufferedOutputStream f = new BufferedOutputStream(new FileOutputStream(outputFile));
         
 
@@ -93,6 +95,7 @@ public class Draw {
                 }
 
                 outputColor.srgbEncode();
+                
                 f.write(outputColor.toBytesForBMP());
             }
 
@@ -110,5 +113,8 @@ public class Draw {
 
         File output = new File("output.jpg");
         ImageIO.write(image, "jpg", output);
+        long end = System.nanoTime();
+        System.out.println("Vrijeme crtanja u nanosekundama:");
+        System.out.println(end-start);
     }
 }
